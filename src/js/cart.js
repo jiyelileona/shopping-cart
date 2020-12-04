@@ -1,13 +1,13 @@
-let ul = document.querySelector(".cart-inner.hide > ul");
-ul.innerHTML = " ";
-let buttons = document.querySelectorAll("#add-to-cart");
-let removeIcon = document.querySelectorAll("#delete");
-let totalAmount = document.querySelector("#total-amount");
-totalAmount.innerHTML = "$0";
-let subtotalAmount = document.querySelector("#subtotal-amount");
-subtotalAmount.innerHTML = "$0";
-let currentCardNumber = document.querySelector("#items-in-cart");
-currentCardNumber.innerHTML = "You have 0 item in your cart";
+let ul = document.querySelector('.cart-inner.hide > ul');
+ul.innerHTML = ' ';
+let buttons = document.querySelectorAll('#add-to-cart');
+let removeIcon = document.querySelectorAll('#delete');
+let totalAmount = document.querySelector('#total-amount');
+totalAmount.innerHTML = '$0';
+let subtotalAmount = document.querySelector('#subtotal-amount');
+subtotalAmount.innerHTML = '$0';
+let currentCardNumber = document.querySelector('#items-in-cart');
+currentCardNumber.innerHTML = 'You have 0 item in your cart';
 
 class Cart {
   constructor() {
@@ -17,15 +17,13 @@ class Cart {
   }
 
   addCourse(courseId) {
-    let targetedCourse = courses.find((course) => course.id === courseId);
+    let targetedCourse = courses.find(course => course.id === courseId);
     this.cartCourses.push(targetedCourse);
     this.update();
   }
 
   removeCourse(courseId) {
-    this.cartCourses = this.cartCourses.filter(
-      (course) => course.id !== courseId
-    );
+    this.cartCourses.splice(courseIndex, 1);
 
     this.update();
   }
@@ -47,7 +45,7 @@ class Cart {
   }
 
   update() {
-    ul.innerHTML = "";
+    ul.innerHTML = '';
     for (let course of this.cartCourses) {
       ul.innerHTML += course.createCourse();
     }
@@ -58,9 +56,7 @@ let currentCart = new Cart();
 
 for (let button of buttons) {
   button.onclick = function (event) {
-    currentCart.addCourse(
-      event.target.closest("li").getAttribute("data-course-id")
-    );
+    currentCart.addCourse(event.target.closest('li').getAttribute('data-course-id'));
 
     subtotalAmount.innerHTML = `$${currentCart.subtotal()}`;
     totalAmount.innerHTML = `$${currentCart.total()}`;
@@ -70,10 +66,10 @@ for (let button of buttons) {
 
 ul.onclick = function (event) {
   let target = event.target;
-  let courseId = target.closest("li").getAttribute("data-course-id");
-
-  if (target.className === "far fa-times-circle") {
-    currentCart.removeCourse(courseId);
+  let element = target.closest('li');
+  const index = Array.prototype.indexOf.call(ul.children, element);
+  if (target.className === 'far fa-times-circle') {
+    currentCart.removeCourse(index);
     subtotalAmount.innerHTML = `$${currentCart.subtotal()}`;
     totalAmount.innerHTML = `$${currentCart.total()}`;
     currentCardNumber.innerHTML = `You have ${currentCart.cartCourses.length} items in your cart`;
