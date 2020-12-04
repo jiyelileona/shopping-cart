@@ -22,8 +22,8 @@ class Cart {
     this.update();
   }
 
-  removeCourse(courseId) {
-    this.cartCourses.splice(courseIndex, 1);
+  removeCourse(courseIndex) {
+    this.cartCourses.splice(courseIndex, 1)
 
     this.update();
   }

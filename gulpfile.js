@@ -2,6 +2,8 @@ const {src, dest, series, parallel} = require('gulp');
 const cssnano = require('gulp-cssnano');
 const sourcemaps = require('gulp-sourcemaps');
 const concat = require('gulp-concat');
+const babel = require('gulp-babel');
+const uglify = require('gulp-uglify');
 
 function htmlTask() {
   return src('src/*.html').pipe(dest('dist'));
@@ -17,7 +19,17 @@ function stylesTask() {
 }
 
 function scriptsTask() {
-  return src(['src/js/courses.js', 'src/js/cart.js']).pipe(dest('dist/js'));
+  return src(['src/js/courses.js', 'src/js/cart.js'])
+    .pipe(concat('main.js'))
+    .pipe(
+      babel({
+        presets: ['@babel/env'],
+      })
+    )
+    .pipe(sourcemaps.init())
+    .pipe(uglify())
+    .pipe(sourcemaps.write())
+    .pipe(dest('dist/js'));
 }
 
 function imagesTask() {
