@@ -5,6 +5,11 @@ const concat = require('gulp-concat');
 const babel = require('gulp-babel');
 const uglify = require('gulp-uglify');
 const imagemin = require('gulp-imagemin');
+const del = require('del');
+
+function clean() {
+  return del('dist');
+}
 
 function htmlTask() {
   return src('src/*.html').pipe(dest('dist'));
@@ -34,12 +39,10 @@ function scriptsTask() {
 }
 
 function imagesTask() {
-  return src('src/images/*')
-  .pipe(imagemin())
-  .pipe(dest('dist/images'));
+  return src('src/images/*').pipe(imagemin()).pipe(dest('dist/images'));
 }
 
 exports.html = htmlTask;
 exports.styles = stylesTask;
 exports.scripts = scriptsTask;
-exports.default = series(htmlTask, parallel(imagesTask, scriptsTask, stylesTask));
+exports.default = series(clean, htmlTask, parallel(imagesTask, scriptsTask, stylesTask));
