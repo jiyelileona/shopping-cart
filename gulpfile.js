@@ -16,7 +16,13 @@ function htmlTask() {
 }
 
 function stylesTask() {
-  return src(['src/css/normalize.css', 'src/css/style.css'])
+  return src([
+    'src/css/normalize.css',
+    'src/css/style.css',
+    'src/css/color-change1.css',
+    'src/css/color-change2.css',
+    'src/css/color-change3.css',
+  ])
     .pipe(sourcemaps.init())
     .pipe(cssnano())
     .pipe(concat('style.css'))
