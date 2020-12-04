@@ -22,6 +22,7 @@ function stylesTask() {
     'src/css/color-change1.css',
     'src/css/color-change2.css',
     'src/css/color-change3.css',
+    'src/css/navbar-animation.css',
   ])
     .pipe(sourcemaps.init())
     .pipe(cssnano())

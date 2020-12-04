@@ -8,6 +8,8 @@ let subtotalAmount = document.querySelector('#subtotal-amount');
 subtotalAmount.innerHTML = '$0';
 let currentCardNumber = document.querySelector('#items-in-cart');
 currentCardNumber.innerHTML = 'You have 0 item in your cart';
+let cartButton = document.querySelector('.popover')
+let cart = document.querySelector('.cart-inner')
 
 class Cart {
   constructor() {
@@ -75,3 +77,7 @@ ul.onclick = function (event) {
     currentCardNumber.innerHTML = `You have ${currentCart.cartCourses.length} items in your cart`;
   }
 };
+
+cartButton.addEventListener('click', function() {
+  cart.classList.toggle('open')
+})
